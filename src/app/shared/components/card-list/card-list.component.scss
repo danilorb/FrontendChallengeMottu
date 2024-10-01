@@ -1,0 +1,22 @@
+.card {
+  width: 224px;
+    background: #0A0A0A;
+    color: white;
+    border: 1px solid #3D3D3D;
+    border-radius: 8px;
+    overflow: hidden;
+
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  img {
+    width: 224px;
+    background-size: cover;
+  }
+  &-info {
+    padding: 0 10px;
+  }
+}
