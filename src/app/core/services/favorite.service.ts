@@ -7,7 +7,9 @@ export class FavoriteService {
   private favorites: any[] = [];
 
   addFavorite(character: any): void {
-    this.favorites.push(character);
+    if (!this.isFavorite(character)) {
+      this.favorites.push(character);
+    }
   }
 
   removeFavorite(character: any): void {
@@ -20,9 +22,5 @@ export class FavoriteService {
 
   getFavoriteCount(): number {
     return this.favorites.length;
-  }
-
-  getFavorites(): any[] {
-    return this.favorites;
   }
 }

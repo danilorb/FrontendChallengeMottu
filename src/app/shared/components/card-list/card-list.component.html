@@ -1,26 +1,44 @@
-
-<div class="card-grid">
-  @for (character of filteredCharacters; track $index) {
-  <div class="card">
-    <img [src]="character.image" alt="{{ character.name }}" />
-    <div class="card-info">
-      <h3>{{ character.name }}</h3>
-      <p>{{ character.species }}</p>
-    </div>
-    <div class="card-favorite">
-      <mat-icon
-      (click)="toggleFavorite(character)"
-      [class.favorite]="favoriteService.isFavorite(character)"
-    >
-      {{ favoriteService.isFavorite(character) ? 'favorite' : 'favorite_border' }}
-    </mat-icon>
+<div *ngIf="filteredCharacters.length > 0; else noResults">
+  <div class="card-grid" infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollUpDistance]="1.5"
+  [infiniteScrollThrottle]="150"
+  (scrolled)="onScrollDown()">
+    <div *ngFor="let character of filteredCharacters; trackBy: trackById" class="card">
+      <img [src]="character.image" alt="{{ character.name }}" />
+      <div class="card-info">
+        <h3>{{ character.name }}</h3>
+        <p>{{ character.species }}</p>
+      </div>
+      <div class="card-favorite">
+        <mat-icon
+          (click)="toggleFavorite(character)"
+          [class.favorite]="favoriteService.isFavorite(character)"
+        >
+          {{ favoriteService.isFavorite(character) ? 'favorite' : 'favorite_border' }}
+        </mat-icon>
+      </div>
     </div>
   </div>
-  }
+
+  <!-- Spinner de carregamento -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner> <!-- Use o spinner do Angular Material -->
+  </div>
 </div>
 
-  <!-- <app-message
-  [title]="isFavorite ? 'Nada foi encontrado':'Parece que você ainda não tem favoritos'"
-  [description]="isFavorite ? 'Tente realizar uma nova busca.': 'Volte à página inicial e escolha os melhores para você.'">
-  </app-message> -->
+<ng-template #noResults>
+  <ng-container *ngIf="!isFavorite; else noFavorites">
+    <app-message
+      title="Nada foi encontrado"
+      description="Tente realizar uma nova busca.">
+    </app-message>
+  </ng-container>
+</ng-template>
 
+<ng-template #noFavorites>
+  <app-message
+    title="Parece que você ainda não tem favoritos"
+    description="Volte à página inicial e escolha os melhores para você.">
+  </app-message>
+</ng-template>
