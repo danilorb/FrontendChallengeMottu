@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { CharacterService } from '../../../core/services/character-service.service';
-import { NgFor } from '@angular/common';
-import { MessageComponent } from '../message/message.component';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CharacterService } from '../../../core/services/character.service';
+import { FavoriteService } from '../../../core/services/favorite.service';
+import { NgFor, NgIf } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-card-list',
@@ -9,42 +10,60 @@ import { MessageComponent } from '../message/message.component';
   styleUrls: ['./card-list.component.scss'],
   providers: [CharacterService],
   standalone: true,
-  imports: [NgFor, MessageComponent],
+  imports: [NgFor, NgIf, MatIconModule],
 })
-export class CardListComponent implements OnInit {
+export class CardListComponent {
   characters: any[] = [];
   page: number = 1;
-  hasResults: boolean = true;
-  @Input() searchTerm: string = '';
+  @Input() searchTerm: string = '';  // Termo de busca para filtrar personagens
+  @Input() isFavorite: boolean = false;  // Indica se está no modo favoritos
+  @Output() favoriteCountChange = new EventEmitter<number>();  // Emite mudanças na contagem de favoritos
 
-  constructor(private characterService: CharacterService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private characterService: CharacterService,
+    public favoriteService: FavoriteService
+  ) {}
 
   ngOnInit(): void {
-    this.loadCards();
+    this.loadCards();  // Carrega os personagens ao iniciar o componente
   }
 
-  loadCards() {
+  // Carrega os personagens e emite a contagem de favoritos
+  loadCards(): void {
     this.characterService.getCharacters(this.page).subscribe((data) => {
       this.characters = data.results;
-      this.checkHasResults();
+      this.emitFavoriteCount();  // Atualiza a contagem de favoritos
     });
   }
 
-  checkHasResults() {
-    const filtered = this.characters.filter(character =>
+  // Retorna a lista filtrada de personagens, considerando o termo de busca e o modo de favoritos
+  get filteredCharacters(): any[] {
+    let filtered = this.characters.filter((character) =>
       character.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
-    this.hasResults = filtered.length > 0;
-    this.cdr.detectChanges(); // Força a verificação de mudanças após atualizar hasResults
+
+    if (this.isFavorite) {
+      filtered = filtered.filter((character) =>
+        this.favoriteService.isFavorite(character)
+      );
+    }
+
+    return filtered;
   }
 
-  get filteredCharacters() {
-    return this.characters.filter(character =>
-      character.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+  // Adiciona ou remove um personagem dos favoritos
+  toggleFavorite(character: any): void {
+    if (this.favoriteService.isFavorite(character)) {
+      this.favoriteService.removeFavorite(character);  // Remove dos favoritos
+    } else {
+      this.favoriteService.addFavorite(character);  // Adiciona aos favoritos
+    }
+    this.emitFavoriteCount();  // Atualiza a contagem de favoritos ao adicionar/remover
   }
 
-  ngOnChanges() {
-    this.checkHasResults(); // Verifica se há resultados sempre que o searchTerm mudar
+  // Emite o número atual de itens favoritados
+  emitFavoriteCount(): void {
+    const favoriteCount = this.favoriteService.getFavoriteCount();
+    this.favoriteCountChange.emit(favoriteCount);  // Atualiza o header
   }
 }

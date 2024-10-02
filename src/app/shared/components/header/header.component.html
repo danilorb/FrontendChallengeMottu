@@ -1,20 +1,22 @@
 <header class="app-header">
-  <img ngSrc="/assets/images/logo.svg" priority width="114" height="64">
+  <img ngSrc="/assets/images/logo.svg" priority width="114" height="64" />
 
   <mat-button-toggle-group
-  [(value)]="selectedValue"
-  aria-label="Menu de Navegação"
-  (change)="toggleSelection($event.value)"
-  [hideSingleSelectionIndicator]="hideSingleSelectionIndicator()"
->
-  <mat-button-toggle value="home">
-    <mat-icon>home</mat-icon>
-    <span>Início</span>
-  </mat-button-toggle>
-  <mat-button-toggle value="favorites">
-    <mat-icon>star</mat-icon>
-    <span>Favoritos</span>
-    <!-- <span class="favorite-count" *ngIf="favoriteCount > 0">{{ favoriteCount }}</span> -->
-  </mat-button-toggle>
-</mat-button-toggle-group>
+    name="views"
+    aria-label="Views"
+    [(value)]="selectedView"
+    (change)="onToggleChange($event.value)"
+    [hideSingleSelectionIndicator]="hideSingleSelectionIndicator()"
+  >
+    <mat-button-toggle value="home">
+      <mat-icon>home</mat-icon>
+      Início
+    </mat-button-toggle>
+    <mat-button-toggle value="favorites">
+      <mat-icon>favorite</mat-icon>
+      Favoritos
+      <span *ngIf="favoriteCount > 0" class="badge">{{ favoriteCount }}</span>
+
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </header>

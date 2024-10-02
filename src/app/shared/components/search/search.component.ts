@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgOptimizedImage } from '@angular/common';
@@ -15,7 +15,7 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './search.component.scss'
 })
 export class SearchComponent {
-
+  @Input() isFavorite: boolean = false;
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
 
   onSearch(event: Event): void {

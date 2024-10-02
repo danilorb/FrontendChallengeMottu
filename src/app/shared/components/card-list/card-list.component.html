@@ -1,4 +1,4 @@
-@if(hasResults){
+
 <div class="card-grid">
   @for (character of filteredCharacters; track $index) {
   <div class="card">
@@ -7,12 +7,20 @@
       <h3>{{ character.name }}</h3>
       <p>{{ character.species }}</p>
     </div>
+    <div class="card-favorite">
+      <mat-icon
+      (click)="toggleFavorite(character)"
+      [class.favorite]="favoriteService.isFavorite(character)"
+    >
+      {{ favoriteService.isFavorite(character) ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
+    </div>
   </div>
   }
 </div>
-} @else {
-  <app-message
-  title="Nada foi encontrado"
-  description="Tente realizar uma nova busca.">
-  </app-message>
-}
+
+  <!-- <app-message
+  [title]="isFavorite ? 'Nada foi encontrado':'Parece que você ainda não tem favoritos'"
+  [description]="isFavorite ? 'Tente realizar uma nova busca.': 'Volte à página inicial e escolha os melhores para você.'">
+  </app-message> -->
+
