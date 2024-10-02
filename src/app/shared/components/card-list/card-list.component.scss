@@ -1,48 +1,67 @@
+@import "../../../../assets/styles/main.scss";
+
 .card {
-  width: 224px;
-  background: #0a0a0a;
-  color: white;
-  border: 1px solid #3d3d3d;
-  border-radius: 8px;
+  @include border-radius(8px);
+  width: 100%;
+  max-width: 340px;
+  min-width: 222px;
+  background: $color-core-foreground;
+  color: $color-neutral-surface;
+  border: 1px solid $color-core-border;
   overflow: hidden;
   position: relative;
+
+  @media (max-width: 480px) {
+    margin: 0 auto;
+  }
 
   &-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   img {
-    width: 224px;
+    width: 100%;
+    height: auto;
     background-size: cover;
   }
   &-info {
     padding: 0 10px;
     h3 {
-      font-family: "Creepster", system-ui;
-      font-size: 24px;
+      @include typography(24px, inherit, 400);
+      font-family: $font-secondary;
       list-style: 24px;
-      font-weight: 400;
       font-style: normal;
     }
     p {
-      color: #a4a4a4;
-      font-size: 16px;
-      font-weight: 400;
+      @include typography(16px, $color-neutral-content, 600);
     }
   }
 
   &-favorite {
+    @include border-radius(0px 0px 0px 40px);
     position: absolute;
     top: 0px;
     right: 0px;
-    border-radius: 0px 0px 0px 40px;
     padding: 10px;
     cursor: pointer;
+    .favorite {
+      @include spacing(-10px, 15px);
+      @include border-radius(0 10px 0 50px);
+      background: $color-neutral-surface;
+      color: $color-neutral-content-onSource;
+    }
   }
 }
-
 
 .loading-spinner {
   display: flex;

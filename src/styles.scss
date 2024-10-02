@@ -1,17 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'assets/styles/main';
 
 html,
 body {
-  background: #1f1f1f;
-}
-
-html,
-body {
+  background: $color-core-background;
   height: 100%;
-}
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
 }

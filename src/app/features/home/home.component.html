@@ -1,16 +1,16 @@
 <app-header (viewChange)="onViewChange($event)" [favoriteCount]="favoriteCount"></app-header>
 <main class="main-content">
+  <div class="main-grid">
+    <app-search (searchTermChange)="onSearchTermChange($event)" [isFavorite]="selectedView === 'home'"/>
 
-  <app-search (searchTermChange)="onSearchTermChange($event)" [isFavorite]="selectedView === 'home'"/>
 
+    @if (selectedView === 'home') {
+      <app-card-list [searchTerm]="searchTerm" [isFavorite]="false"  (favoriteCountChange)="favoriteCount = $event"/>
+    }
 
-  @if (selectedView === 'home') {
-    <app-card-list [searchTerm]="searchTerm" [isFavorite]="false"  (favoriteCountChange)="favoriteCount = $event"/>
-  }
-
-  @if (selectedView === 'favorites') {
-    <app-card-list [searchTerm]="searchTerm" [isFavorite]="true"  (favoriteCountChange)="favoriteCount = $event"/>
-  }
-
+    @if (selectedView === 'favorites') {
+      <app-card-list [searchTerm]="searchTerm" [isFavorite]="true"  (favoriteCountChange)="favoriteCount = $event"/>
+    }
+  </div>
 
 </main>

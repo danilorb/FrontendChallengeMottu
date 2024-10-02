@@ -15,7 +15,5 @@ export class MessageComponent {
 
 
 
-  onButtonClick(): void {
-    console.log('Botão clicado!');
-  }
+  onButtonClick(): void {}
 }

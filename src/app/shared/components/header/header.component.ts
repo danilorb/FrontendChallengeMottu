@@ -12,9 +12,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, signal
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() favoriteCount: number = 0;  // Recebe a contagem de favoritos
-  @Output() viewChange = new EventEmitter<'home' | 'favorites'>(); // Emissor de evento para mudança de view
-  selectedView: string = 'home'; // View selecionada
+  @Input() favoriteCount: number = 0;
+  @Output() viewChange = new EventEmitter<'home' | 'favorites'>();
+  selectedView: string = 'home';
 
   hideSingleSelectionIndicator = signal(true);
 

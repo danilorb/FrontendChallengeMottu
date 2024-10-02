@@ -1,14 +1,59 @@
+@import "../../../../assets/styles/main.scss";
+
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: space-between;
   align-items: center;
   padding: 16px;
 
-  &__title {
-  }
-
   &__search {
     margin-left: 16px;
     width: 328px;
+  }
+}
+
+// custom input search
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  @include border-radius(20px);
+  background-color: transparent !important ;
+  border: 1px solid $color-core-border;
+  padding: 0px 20px;
+}
+
+::ng-deep
+  .mat-mdc-form-field:not(.mat-form-field-disabled)
+  .mat-mdc-floating-label.mdc-floating-label {
+  @include typography(16px, $color-neutral-content-high !important, 400);
+}
+
+::ng-deep
+  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+  .mdc-line-ripple::before,
+::ng-deep
+  .mat-mdc-form-field:not(.mat-form-field-no-animations)
+  .mdc-line-ripple::after,
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+::ng-deep mdc-line-ripple mdc-line -riple--active,
+::ng-deep
+  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+  .mdc-text-field__input,
+::ng-deep.mdc-text-field--filled:not(.mdc-text-field--disabled)
+  .mdc-text-field__input {
+  color: $color-neutral-content-high !important;
+}
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: repeat(1, 1fr);
+    text-align: center;
+    margin: 0 auto;
+    display: table;
+    &__search {
+      margin: 0;
+    }
   }
 }

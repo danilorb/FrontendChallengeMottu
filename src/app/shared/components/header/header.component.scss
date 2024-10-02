@@ -1,7 +1,53 @@
+@import "../../../../assets/styles/main.scss";
+
 .app-header {
-  background: #0a0a0a;
-  border-bottom: 1px solid #3d3d3d;
+  background: $color-core-foreground;
+  border-bottom: 1px solid $color-core-border;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  span.badge {
+    @include typography(14px,$color-core-foreground,700);
+    @include size(20px,20px);
+    @include border-radius(100%);
+    background: $color-neutral-surface;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+}
+
+// custom mat toggle
+.mat-button-toggle-appearance-standard {
+  @include spacing(0px,10px);
+  color: $color-neutral-content;
+  background-color: transparent;
+}
+
+.mat-button-toggle-standalone,
+.mat-button-toggle-group {
+  height: 40px;
+  align-items: center;
+  border: 1px solid $color-neutral-content;
+}
+
+::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  @include typography(14px !important, inherit,600);
+  font-family: $font-primary !important;
+  line-height: 14px;
+  text-align: center;
+}
+
+.mat-button-toggle-appearance-standard.mat-button-toggle-checked {
+  background-color: $color-neutral-surface !important;
+  color: #{$color-core-foreground};
+}
+
+mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color {
+  font-size: 18px;
+  top: 2px;
+  position: relative;
 }
