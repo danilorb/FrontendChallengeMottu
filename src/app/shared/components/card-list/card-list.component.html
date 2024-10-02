@@ -1,3 +1,4 @@
+@if(hasResults){
 <div class="card-grid">
   @for (character of filteredCharacters; track $index) {
   <div class="card">
@@ -9,3 +10,9 @@
   </div>
   }
 </div>
+} @else {
+  <app-message
+  title="Nada foi encontrado"
+  description="Tente realizar uma nova busca.">
+  </app-message>
+}

@@ -1,17 +1,6 @@
 <app-header></app-header>
 <main class="main-content">
-  <section class="header">
-    <div class="header__title">
-        <img
-            src="/assets/images/title-home.svg"
-            width="110"
-            height="48"
-            alt="Título da Página"
-        />
-    </div>
-    <mat-form-field appearance="fill" class="header__search custom-search">
-        <mat-label>Buscar</mat-label>
-        <input matInput placeholder="Buscar..." class="custom-input">
-    </mat-form-field>
-</section>
+
+  <app-search (searchTermChange)="onSearchTermChange($event)"></app-search>
+  <app-card-list [searchTerm]="searchTerm"></app-card-list>
 </main>

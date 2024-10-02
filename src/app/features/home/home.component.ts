@@ -1,16 +1,25 @@
+
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../shared/components/header/header.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgOptimizedImage } from '@angular/common';
+import { SearchComponent } from '../../shared/components/search/search.component';
+import { CardListComponent } from '../../shared/components/card-list/card-list.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, MatFormFieldModule, MatInputModule, NgOptimizedImage],
+  imports: [
+    HeaderComponent,
+    SearchComponent,
+    CardListComponent
+  ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
 
+  searchTerm: string = '';
+
+  onSearchTermChange(term: string): void {
+    this.searchTerm = term;
+  }
 
 }

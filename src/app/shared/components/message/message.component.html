@@ -1,0 +1,9 @@
+<div class="message-container">
+  <h2>{{ title }}</h2>
+  <p>{{ description }}</p>
+
+  @if (showButton ) {
+    <button (click)="onButtonClick()">{{ buttonText }}</button>
+  }
+
+</div>
