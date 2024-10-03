@@ -10,6 +10,7 @@
   border: 1px solid $color-core-border;
   overflow: hidden;
   position: relative;
+  transition: transform 0.3s ease;
 
   @media (max-width: 480px) {
     margin: 0 auto;
@@ -33,6 +34,10 @@
     width: 100%;
     height: auto;
     background-size: cover;
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
   &-info {
     padding: 0 10px;

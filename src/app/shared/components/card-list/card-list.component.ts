@@ -65,13 +65,11 @@ export class CardListComponent {
       this.characters = [...this.characters, ...data.results]; // Adiciona ao array existente
       this.isLoading = false;
       this.emitFavoriteCount(); // Atualiza a contagem de favoritos
-      setTimeout(() => {
-        this.isSKeleton = false; // Desativa o skeleton
-      }, 2000);
+      this.isSKeleton = false;
     }, error => {
       console.error('Erro ao carregar personagens:', error);
       this.isLoading = false;
-      this.isSKeleton = false; // Desativa o skeleton
+      this.isSKeleton = false;
     });
   }
 

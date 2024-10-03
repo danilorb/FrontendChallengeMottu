@@ -51,3 +51,9 @@ mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color
   top: 2px;
   position: relative;
 }
+
+@media (max-width: 600px) {
+  ::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+   font-size: 0px !important;
+  }
+}
