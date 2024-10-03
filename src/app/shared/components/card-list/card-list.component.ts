@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MessageComponent } from '../message/message.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CharacterInterface } from '../../../core/interceptors/character.interface';
 
 @Component({
   selector: 'app-card-list',
@@ -16,7 +17,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [NgFor, NgIf, MatIconModule, MessageComponent, InfiniteScrollModule, MatProgressSpinnerModule],
 })
 export class CardListComponent {
-  characters: any[] = [];
+  characters: CharacterInterface[] = [];
   page: number = 1;
   isSearching: boolean = false; // Estado de busca
   @Input() searchTerm: string = '';  // Termo de busca para filtrar personagens
@@ -50,7 +51,7 @@ export class CardListComponent {
   }
 
   // Retorna a lista filtrada de personagens
-  get filteredCharacters(): any[] {
+  get filteredCharacters(): CharacterInterface[] {
     let filtered = this.characters.filter((character) =>
       character.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
@@ -65,7 +66,7 @@ export class CardListComponent {
   }
 
   // Adiciona ou remove um personagem dos favoritos
-  toggleFavorite(character: any): void {
+  toggleFavorite(character: CharacterInterface): void {
     if (this.favoriteService.isFavorite(character)) {
       this.favoriteService.removeFavorite(character);  // Remove dos favoritos
     } else {
@@ -87,7 +88,7 @@ export class CardListComponent {
   }
 
   // Método para rastrear itens em uma lista
-  trackById(index: number, character: any): number {
+  trackById(index: number, character: CharacterInterface): number {
     return character.id;  // Retorna o ID do personagem para rastreamento
   }
 }
