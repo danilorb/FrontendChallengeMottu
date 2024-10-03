@@ -1,0 +1,78 @@
+$base-font-size: 16px; // Defina o tamanho base da fonte
+
+// Mixin para width e height
+@mixin size($width: auto, $height: auto) {
+  width: $width;
+  height: $height;
+}
+
+// Mixin para margin e padding
+@mixin spacing($margin: null, $padding: null) {
+  margin: $margin;
+  padding: $padding;
+}
+
+// Mixin para font-size, color, font-weight
+@mixin typography($font-size: 16px, $color: black, $font-weight: normal) {
+  font-size: $font-size;
+  color: $color;
+  font-weight: $font-weight;
+}
+
+//  spacing typetypography
+@mixin typography-spacing($line-height: null, $letter-spacing: null) {
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+// Mixin para animações
+@mixin animation(
+  $animation-name: none,
+  $animation-duration: 0s,
+  $animation-timing-function: ease,
+  $animation-delay: 0s,
+  $animation-iteration-count: 1,
+  $animation-direction: normal
+) {
+  animation-name: $animation-name;
+  animation-duration: $animation-duration;
+  animation-timing-function: $animation-timing-function;
+  animation-delay: $animation-delay;
+  animation-iteration-count: $animation-iteration-count;
+  animation-direction: $animation-direction;
+}
+
+// Mixin para border-radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+
+// Mixin converter PX for REM
+@mixin px-to-rem($property, $values...) {
+  $rem-values: ();
+
+  @each $value in $values {
+    $rem-values: append(
+      $rem-values,
+      calc($value / $base-font-size * 1rem),
+      comma
+    );
+  }
+
+  #{$property}: $rem-values;
+}
+
+// Mixin converter PX for EM
+@mixin px-to-em($property, $values...) {
+  $em-values: ();
+
+  @each $value in $values {
+    $em-values: append($em-values, calc($value / $base-font-size * 1em), comma);
+  }
+
+  #{$property}: $em-values;
+}
