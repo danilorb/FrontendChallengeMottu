@@ -5,7 +5,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MessageComponent } from '../message/message.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-card-list',
@@ -30,14 +30,15 @@ export class CardListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.loadCards();  // Carrega os personagens ao iniciar o componente
+    // Carrega os personagens ao iniciar o componente
+    this.loadCards();
   }
 
   // Carrega os personagens e adiciona ao array existente
   loadCards(): void {
     if (this.isLoading) return;  // Previne múltiplos carregamentos simultâneos
-
     this.isLoading = true;
+
     this.characterService.getCharacters(this.page).subscribe((data) => {
       this.characters = [...this.characters, ...data.results];  // Adiciona ao array existente
       this.isLoading = false;  // Desativa o carregamento
@@ -48,7 +49,7 @@ export class CardListComponent {
     });
   }
 
-  // Retorna a lista filtrada de personagens, considerando o termo de busca e o modo de favoritos
+  // Retorna a lista filtrada de personagens
   get filteredCharacters(): any[] {
     let filtered = this.characters.filter((character) =>
       character.name.toLowerCase().includes(this.searchTerm.toLowerCase())
@@ -56,7 +57,7 @@ export class CardListComponent {
 
     if (this.isFavorite) {
       filtered = filtered.filter((character) =>
-        this.favoriteService.isFavorite(character)
+        this.favoriteService.isFavorite(character) // Filtra favoritos
       );
     }
 
@@ -87,6 +88,6 @@ export class CardListComponent {
 
   // Método para rastrear itens em uma lista
   trackById(index: number, character: any): number {
-    return character.id; // Supondo que 'id' seja uma propriedade única de cada personagem
+    return character.id;  // Retorna o ID do personagem para rastreamento
   }
 }

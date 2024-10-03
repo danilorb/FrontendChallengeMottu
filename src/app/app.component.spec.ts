@@ -1,29 +1,22 @@
-import { TestBed } from '@angular/core/testing';
+import { render } from '@testing-library/angular';
 import { AppComponent } from './app.component';
+import { RouterOutlet } from '@angular/router';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
+  it('should create the component', async () => {
+    const component = await render(AppComponent); // Renderiza o componente
+    expect(component).toBeTruthy(); // Verifica se o componente foi criado com sucesso
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should have the title set to "frontend-challenge-mottu"', async () => {
+    const { fixture } = await render(AppComponent); // Renderiza o componente
+    const componentInstance = fixture.componentInstance;
+    expect(componentInstance.title).toBe('frontend-challenge-mottu'); // Verifica se o título está correto
   });
 
-  it(`should have the 'frontend-challenge-mottu' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend-challenge-mottu');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, frontend-challenge-mottu');
+  it('should render router-outlet', async () => {
+    const { container } = await render(AppComponent); // Renderiza o componente
+    const routerOutlet = container.querySelector('router-outlet');
+    expect(routerOutlet).not.toBeNull(); // Verifica se o RouterOutlet foi renderizado
   });
 });

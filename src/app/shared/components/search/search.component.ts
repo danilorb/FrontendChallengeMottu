@@ -12,12 +12,13 @@ import { NgOptimizedImage } from '@angular/common';
     NgOptimizedImage,
   ],
   templateUrl: './search.component.html',
-  styleUrl: './search.component.scss'
+  styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
   @Input() isFavorite: boolean = false;
   @Output() searchTermChange: EventEmitter<string> = new EventEmitter<string>();
 
+  // Método chamado quando o usuário realiza uma busca
   onSearch(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.searchTermChange.emit(input.value);

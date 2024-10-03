@@ -14,6 +14,5 @@ export class MessageComponent {
   @Input() showButton: boolean = false;
 
 
-
   onButtonClick(): void {}
 }

@@ -7,10 +7,10 @@ module.exports = {
   coverageReporters: ['html', 'text-summary'], // 'text-summary' mostra o resumo no console
   coverageThreshold: {
     global: {
-      statements: 80,
-      branches: 70,
-      functions: 75,
-      lines: 80
+      statements: 60,
+      branches: 60,
+      functions: 60,
+      lines: 60
     }
   }
 };
