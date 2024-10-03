@@ -5,6 +5,7 @@ import { FavoriteService } from '../../../core/services/favorite.service';
 import { of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { CharacterInterface } from '../../../core/interceptors/character.interface';
 
 describe('CardListComponent', () => {
   let component: CardListComponent;
@@ -42,21 +43,21 @@ describe('CardListComponent', () => {
 
   it('Deve filtrar personagens com base no termo de busca', () => {
     component.characters = [
-      { name: 'Superman' },
-      { name: 'Wonder Woman' },
+      { id: 1, name: 'Superman', species: 'Kryptonian', image: 'superman.jpg' },  // Ajuste conforme necessário
+      { id: 2, name: 'Wonder Woman', species: 'Amazon', image: 'wonderwoman.jpg' }, // Ajuste conforme necessário
     ];
     component.searchTerm = 'man';
     expect(component.filteredCharacters.length).toBe(2);
   });
 
   it('Deve adicionar um personagem aos favoritos', () => {
-    const character = { id: 1, name: 'Batman' };
+    const character: CharacterInterface = { id: 1, name: 'Batman', species: 'Human', image: 'batman.jpg' }; // Ajuste conforme necessário
     component.toggleFavorite(character);
     expect(favoriteService.addFavorite).toHaveBeenCalledWith(character);
   });
 
   it('Deve remover um personagem dos favoritos', () => {
-    const character = { id: 1, name: 'Batman' };
+    const character: CharacterInterface = { id: 1, name: 'Batman', species: 'Human', image: 'batman.jpg' }; // Ajuste conforme necessário
     favoriteService.isFavorite = jest.fn().mockReturnValue(true);
     component.toggleFavorite(character);
     expect(favoriteService.removeFavorite).toHaveBeenCalledWith(character);
