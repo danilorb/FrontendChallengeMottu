@@ -21,22 +21,17 @@ export class HomeComponent {
   selectedView: 'home' | 'favorites' = 'home';
   favoriteCount: number = 0;
 
+
   onSearchTermChange(term: string): void {
-    if (term.trim() !== '') {
-      this.searchTerm = term;
-    }
+    this.searchTerm = term;
   }
 
-  onViewChange(view: string): void {
-    if (view === 'home' || view === 'favorites') {
-      this.selectedView = view;
-    }
+  onViewChange(view: 'home' | 'favorites') {
+    this.selectedView = view;
   }
 
   updateFavoriteCount(count: number): void {
-    if (isNaN(count) || count < 0) {
-      this.favoriteCount = 0;
-    } else {
+    if (typeof count === 'number') {
       this.favoriteCount = count;
     }
   }

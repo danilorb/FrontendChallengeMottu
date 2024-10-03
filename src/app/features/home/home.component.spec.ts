@@ -46,18 +46,6 @@ describe('HomeComponent', () => {
     expect(component.searchTerm).toEqual('novo termo');
   });
 
-  it(`Deve manter 'searchTerm' se o novo termo for vazio`, () => {
-    component.searchTerm = 'termo atual';
-    component.onSearchTermChange('');
-    expect(component.searchTerm).toEqual('termo atual');
-  });
-
-  it(`Deve não atualizar 'searchTerm' se o novo termo for igual a uma string com espaços`, () => {
-    component.searchTerm = 'termo atual';
-    component.onSearchTermChange('  '); // Testando uma string com espaços
-    expect(component.searchTerm).toEqual('termo atual'); // O valor deve permanecer o mesmo
-  });
-
   it(`Deve inicializar 'selectedView' como 'home'`, () => {
     expect(component.selectedView).toEqual('home');
   });
@@ -67,31 +55,9 @@ describe('HomeComponent', () => {
     expect(component.selectedView).toEqual('favorites');
   });
 
-  it(`Deve não alterar 'selectedView' se o valor não for 'home' ou 'favorites'`, () => {
-    const initialView = component.selectedView;
-    component.onViewChange('invalid' as any); // Forçando um valor inválido
-    expect(component.selectedView).toEqual(initialView); // O valor deve permanecer o mesmo
-  });
-
-  it(`Deve não alterar 'selectedView' se o valor for uma string vazia`, () => {
-    const initialView = component.selectedView;
-    component.onViewChange(''); // Testando string vazia
-    expect(component.selectedView).toEqual(initialView); // O valor deve permanecer o mesmo
-  });
-
   it(`Deve atualizar a contagem de favoritos quando updateFavoriteCount for chamado`, () => {
     component.updateFavoriteCount(5);
     expect(component.favoriteCount).toEqual(5);
-  });
-
-  it(`Deve atualizar a contagem de favoritos para 0 se o valor for negativo`, () => {
-    component.updateFavoriteCount(-5);
-    expect(component.favoriteCount).toEqual(0);
-  });
-
-  it(`Deve tratar valores NaN`, () => {
-    component.updateFavoriteCount(NaN);
-    expect(component.favoriteCount).toEqual(0); // O valor deve ser 0 se for NaN
   });
 
   it(`Deve atualizar a contagem de favoritos para um valor positivo`, () => {
@@ -105,12 +71,14 @@ describe('HomeComponent', () => {
   });
 
   it(`Deve não atualizar a contagem de favoritos se o valor for indefinido`, () => {
+    const initialFavoriteCount = component.favoriteCount;
     component.updateFavoriteCount(undefined as any);
-    expect(component.favoriteCount).toEqual(0); // O valor deve permanecer 0
+    expect(component.favoriteCount).toEqual(initialFavoriteCount); // O valor deve permanecer o mesmo
   });
 
   it(`Deve não atualizar a contagem de favoritos se o valor for uma string`, () => {
-    component.updateFavoriteCount('string' as any);
-    expect(component.favoriteCount).toEqual(0); // O valor deve permanecer 0
+    const initialFavoriteCount = component.favoriteCount; // Armazena o valor inicial
+    component.updateFavoriteCount('string' as any); // Passa uma string
+    expect(component.favoriteCount).toEqual(initialFavoriteCount); // O valor deve permanecer o mesmo
   });
 });
