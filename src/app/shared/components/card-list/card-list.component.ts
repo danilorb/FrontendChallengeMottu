@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CharacterService } from '../../../core/services/character.service';
 import { FavoriteService } from '../../../core/services/favorite.service';
-import { NgFor, NgIf } from '@angular/common';
+import {  CommonModule, NgFor, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MessageComponent } from '../message/message.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CharacterInterface } from '../../../core/interceptors/character.interface';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-card-list',
@@ -14,7 +15,21 @@ import { CharacterInterface } from '../../../core/interceptors/character.interfa
   styleUrls: ['./card-list.component.scss'],
   providers: [CharacterService],
   standalone: true,
-  imports: [NgFor, NgIf, MatIconModule, MessageComponent, InfiniteScrollModule, MatProgressSpinnerModule],
+  imports: [
+    NgFor, NgIf, MatIconModule, MessageComponent,
+    InfiniteScrollModule, MatProgressSpinnerModule,
+  ],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(300, style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate(300, style({ opacity: 0 })),
+      ]),
+    ]),
+  ],
 })
 export class CardListComponent {
   characters: CharacterInterface[] = [];
