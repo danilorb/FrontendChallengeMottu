@@ -1,27 +1,48 @@
-# FrontendChallengeMottu
+# Frontend Challenge Mottu
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
+Este é um projeto Angular desenvolvido como parte de um desafio frontend.
+O projeto utiliza Angular 17 e inclui funcionalidades de Server-Side Rendering (SSR) e testes.
 
-## Development server
+## Tecnologias Utilizadas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Angular**: Framework para construção de aplicações web.
+- **Express**: Framework para criação de servidores Node.js.
+- **Jest**: Framework de testes para aplicações JavaScript.
+- **ngx-infinite-scroll**: Biblioteca para implementar a rolagem infinita.
+- **Normalize.css**: CSS para garantir a consistência de estilo em diferentes navegadores.
+- **Commitizen**: Padronização dos commits
+- **Coverage**: Para cobertura de teste
+- **GitFlow**: Oraganização de branchs
 
-## Code scaffolding
+## Instalação
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Clone o repositório:
+   ```bash
+   git clone
+   cd frontend-challenge-mottu
+   ```
+2. Instale as dependências:
 
-## Build
+```bash
+  npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. Iniciar o Servidor de Desenvolvimento:
 
-## Running unit tests
+```bash
+  npm server
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+4. Cobertura de Teste
 
-## Running end-to-end tests
+```bash
+  npm run test:coverage
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+5. Fazer o commit pelo commitizen
 
-## Further help
+```bash
+  npx cz ou npm run commit
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[![Add and commit with Commitizen](https://github.com/commitizen/cz-cli/raw/master/meta/screenshots/add-commit.png)](https://github.com/commitizen/cz-cli/raw/master/meta/screenshots/add-commit.png)

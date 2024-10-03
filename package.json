@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:coverage": "jest --coverage",
+    "commit": "cz",
     "serve:ssr:frontend-challenge-mottu": "node dist/frontend-challenge-mottu/server/server.mjs"
   },
   "private": true,
