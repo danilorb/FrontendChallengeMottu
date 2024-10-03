@@ -8,6 +8,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CharacterInterface } from '../../../core/interceptors/character.interface';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { SkeletonCardComponent } from '../skeleton-card/skeleton-card.component';
 
 @Component({
   selector: 'app-card-list',
@@ -18,6 +19,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   imports: [
     NgFor, NgIf, MatIconModule, MessageComponent,
     InfiniteScrollModule, MatProgressSpinnerModule,
+    SkeletonCardComponent
   ],
   animations: [
     trigger('fadeInOut', [
@@ -34,11 +36,15 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class CardListComponent {
   characters: CharacterInterface[] = [];
   page: number = 1;
-  isSearching: boolean = false; // Estado de busca
+  isSearching: boolean = false;
+  isLoading: boolean = false;
+  isSKeleton = true;
+
   @Input() searchTerm: string = '';  // Termo de busca para filtrar personagens
   @Input() isFavorite: boolean = false;  // Indica se está no modo favoritos
   @Output() favoriteCountChange = new EventEmitter<number>();  // Emite mudanças na contagem de favoritos
-  isLoading: boolean = false; // Estado de carregamento
+
+
 
   constructor(
     private characterService: CharacterService,
@@ -50,20 +56,26 @@ export class CardListComponent {
     this.loadCards();
   }
 
-  // Carrega os personagens e adiciona ao array existente
   loadCards(): void {
-    if (this.isLoading) return;  // Previne múltiplos carregamentos simultâneos
+    if (this.isLoading) return; // Previne múltiplos carregamentos simultâneos
     this.isLoading = true;
+    this.isSKeleton = true;
 
     this.characterService.getCharacters(this.page).subscribe((data) => {
-      this.characters = [...this.characters, ...data.results];  // Adiciona ao array existente
-      this.isLoading = false;  // Desativa o carregamento
-      this.emitFavoriteCount();  // Atualiza a contagem de favoritos
+      this.characters = [...this.characters, ...data.results]; // Adiciona ao array existente
+      this.isLoading = false;
+      this.emitFavoriteCount(); // Atualiza a contagem de favoritos
+      setTimeout(() => {
+        this.isSKeleton = false; // Desativa o skeleton
+      }, 2000);
     }, error => {
       console.error('Erro ao carregar personagens:', error);
-      this.isLoading = false;  // Mesmo em caso de erro, desativar o estado de carregamento
+      this.isLoading = false;
+      this.isSKeleton = false; // Desativa o skeleton
     });
   }
+
+
 
   // Retorna a lista filtrada de personagens
   get filteredCharacters(): CharacterInterface[] {

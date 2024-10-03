@@ -1,4 +1,13 @@
+
+
 <div *ngIf="filteredCharacters.length > 0; else noResults">
+
+  @if(isSKeleton) {
+    <div
+    class="card-grid">
+      <app-skeleton-card *ngFor="let skeleton of [].constructor(9)"></app-skeleton-card> <!-- Exibe 5 skeletons -->
+    </div>
+  } @else {
   <div
     class="card-grid"
     infiniteScroll
@@ -29,6 +38,7 @@
     </div>
     }
   </div>
+  }
 
   @if(isLoading){
   <div class="loading-spinner">
